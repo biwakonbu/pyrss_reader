@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RSS Reader</title>
+  </head>
+  <body>
+    <h1>RSS Reader</h1>
+    <p>import file (OPML)</p>
+    <form action="/import" method="POST" enctype="multipart/form-data">
+      <p>
+        <input type="file" name="{{ name }}">
+        <input type="submit" value="Upload">
+      </p>
+    </form>
+
+    {% for feed in feeds %}
+    <h2><a href="{{ feed.htmlUrl }}">{{ feed.title }} ({{ entries[feed.xmlUrl] | length }})</a></h2>
+    {% for entry in entries[feed.xmlUrl] %}
+    <p><a href="{{ entry['href'] }}">{{ entry['title'] }}</a></p>
+    {% endfor %}
+    {% endfor %}
+  </body>
+</html>
